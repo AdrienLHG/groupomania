@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "POPOcollol75",
+    "database": "database_development_v1",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "POPOcollol75",
+    "database": "database_test_v1",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "POPOcollol75",
+    "database": "database_production_v1",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
