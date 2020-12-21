@@ -16,7 +16,6 @@ const nameRegex = /^[a-zÀ-ÿ\d\-.'\s]{2,30}$/i;
 // SIGNUP //
 
 exports.signup = async (req, res, next) => {
-  console.log(req.body);
   if(!nameRegex.test(req.body.username)|| !nameRegex.test(req.body.firstname) || !nameRegex.test(req.body.lastname)) {// nameRegex permet de vérifier les caractères utilisés
     return res.status(400).json({ 'error': 'the content is not valid' });
   }
