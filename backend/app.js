@@ -10,6 +10,10 @@ const likeRoutes = require('./routes/like');
 const messageRoutes = require('./routes/message');
 const userRoutes = require('./routes/user');
 
+const app = express();
+
+//require("./database-connection");
+
 
 // définition des headers
 app.use((req, res, next) => {
