@@ -1,18 +1,16 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');// on importe jwt pour vérifier nos tokens
 
 module.exports = (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
-    const userId = decodedToken.userId;
-    if (req.body.userId && req.body.userId !== userId) {
-      throw 'Invalid user ID';
-    } else {
-      next();
+    try {
+        const token = req.headers.authorization.split(' ')[1];// on va recuperer notre token qui est en deuxième élèment du tableau donc 1 et le bearer en 0
+        const decodedToken = jwt.verify(token, 'XyJ__L9_VU2qMq8E7r_d__428_JRz9_vv7Uz4wVX_V__5eqE__s6829_tzB');// on va décoder le token, donc on verifie le token et en deuximème argument la clé secrète
+        const userId = decodedToken.userId;// on souhaite récuperer l'userId qu'on a encodé 
+        if (req.body.userId && req.body.userId !== userId) {// si la demande contient un ID utilisateur, nous le comparons à celui extrait du token. S'ils sont différents, nous générons une erreur ;
+            throw 'Invalid user ID';
+        } else {
+            next(); // si tout fonctionne et notre utilisateur est authentifié. Nous passons l'exécution à l'aide de la fonction next() .
+        }
+    } catch{
+        res.status(401).json({ error: new Error('Invalid request!')});// erreur 401, requête non authentifiée
     }
-  } catch {
-    res.status(401).json({
-      error: new Error('Invalid request!')
-    });
-  }
 };

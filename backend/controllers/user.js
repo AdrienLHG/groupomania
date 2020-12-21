@@ -15,36 +15,25 @@ const nameRegex = /^[a-zÀ-ÿ\d\-.'\s]{2,30}$/i;
 
 // SIGNUP //
 
-  exports.signup = async (req, res, next) => {
-    if(!nameRegex.test(req.body.username)|| !nameRegex.test(req.body.firstname) || !nameRegex.test(req.body.lastname)) { 
-      return res.status(400).json({ 'erreur': `Le contenu n'est pas valide` });
-    }
-    if (!emailRegex.test(req.body.email) || !emailValidator.validate(req.body.email)) { 
-      return res.status(400).json({ 'erreur': `L'email n'est pas valide` });
-    }
-    if (!passwordValidator.validate(req.body.password)) {
-      return res.status(400).json({ 'erreur': `Le mot de passe n'est pas valide`});
-    }
-    const user = await db.User.create(req.body)
-      .catch(error => res.status(500).json({ error: 'Internal Server Error' }));
+exports.signup = async (req, res, next) => {
+  console.log(req.body);
+  if(!nameRegex.test(req.body.username)|| !nameRegex.test(req.body.firstname) || !nameRegex.test(req.body.lastname)) {// nameRegex permet de vérifier les caractères utilisés
+    return res.status(400).json({ 'error': 'the content is not valid' });
+  }
+  if (!emailRegex.test(req.body.email) || !emailValidator.validate(req.body.email)) {// email validator permet d'accepter un mail valide, idem pour le regex
+    return res.status(400).json({ 'error': 'email is not valid' });
+  }
+  if (!passwordValidator.validate(req.body.password)) {
+    return res.status(400).json({ 'error': 'password invalid (must length 8 - 100 and include 2 number at least)' });
+  }
+  const user = await db.User.create(req.body)//creation du compte utilisateur
+    .catch(error => res.status(500).json({ error: 'Internal Server Error' }));//erreur 500
 
-    user.password = await bcrypt.hash(user.password, 10)
-      .then(hash => {          
-        models.User.create({
-        email: req.body.email,
-        username: req.body.username,
-        password: hash,
-        bio: req.body.bio,
-        isAdmin: 0
-        })
-        user.save()
-            .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-            .catch(error => res.status(400).json({ message: 'Cette adresse mail et\\ou ce nom d\'utilisateur semble être déjà utilisé'
-        }));
-        })
-        .catch(error => res.status(500).json({ error }));
-  };
-
+  user.password = await bcrypt.hash(user.password, 10);// bcrypt va permettre de masquer/crypter le password dans la base de donnée
+  await user.save()// permet d'enregistrer l'utilisateur dans la base de donnée
+    .then(() => res.status(201).json({userId: user.id, isAdmin: user.isAdmin, token: jwt.sign({ userId: user.id }, 'XyJ__L9_VU2qMq8E7r_d__428_JRz9_vv7Uz4wVX_V__5eqE__s6829_tzB', {expiresIn: '24h'})}))// 201 créé et modifiée 
+    .catch(error => res.status(400).json({ error: 'Bad Request !' }));//erreur 400 mauvaise requête
+};
 
 // LOGIN// Connexion de l'utilisateur
 exports.login = (req, res, next) => {
@@ -71,7 +60,7 @@ exports.login = (req, res, next) => {
                 isAdmin: user.isAdmin,
                 token: jwt.sign(
                     { userId: user.id,
-                    },process.env.KEY_TOKEN,
+                    },'XyJ__L9_VU2qMq8E7r_d__428_JRz9_vv7Uz4wVX_V__5eqE__s6829_tzB',
                     { expiresIn: '24h'}
                 )
             });
@@ -84,7 +73,7 @@ exports.login = (req, res, next) => {
 // Find One User // 
 exports.findOneUser =  (req, res, next) => {
     db.User.findOne({
-      attributes: [ 'id', 'email','username', 'firstname', 'lastname'],
+      attributes: [ 'id', 'email','username'],
       where: {id: req.params.id}
     }).then(user => res.status(200).json(user))
       .catch(error => res.status(400).json({error}));
@@ -93,11 +82,11 @@ exports.findOneUser =  (req, res, next) => {
 // Find All Users // 
 exports.findAllUsers =  (req, res, next) => {
     db.User.findAll({
-      attributes: [ 'id', 'email','username', 'firstname', 'lastname'],
+      attributes: ['id', 'email','username'],
     }).then(user => res.status(200).json(user))
       .catch(error => res.status(400).json({error}));
 };
-// Upadte User //
+// Update User //
 exports.updateUser = async (req, res, next) => {
     if(!nameRegex.test(req.body.username)|| !nameRegex.test(req.body.firstname) || !nameRegex.test(req.body.lastname)) { 
         return res.status(400).json({ 'erreur': `Le contenu n'est pas valide` });
