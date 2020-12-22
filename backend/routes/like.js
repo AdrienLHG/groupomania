@@ -4,6 +4,6 @@ const likeCtrl = require('../controllers/like');
 const auth = require('../middleware/auth');
 
 //logique de routing
-//router.post('/:messageId/like', auth, likeCtrl.likeMessage);
+router.post('/:messageId/like', auth, likeCtrl.likeMessage);
 
 module.exports = router; 
