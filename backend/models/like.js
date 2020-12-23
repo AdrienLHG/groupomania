@@ -20,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           allowNull: false
         }
-      });
-    }
-  };
+      })
+      }
+    };
   Like.init({
-    messageId: DataTypes.INTEGER,
+    messageId: DataTypes.STRING,
     userId: DataTypes.INTEGER,
     isLike: DataTypes.INTEGER
   }, {

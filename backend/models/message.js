@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false
         }
       })
-    }
-  };
+      }
+    };
   Message.init({
     userId: DataTypes.INTEGER,
     title: DataTypes.STRING,

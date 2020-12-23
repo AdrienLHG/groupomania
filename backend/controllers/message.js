@@ -11,18 +11,36 @@ exports.createMessage = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'XyJ__L9_VU2qMq8E7r_d__428_JRz9_vv7Uz4wVX_V__5eqE__s6829_tzB');// on va décoder le token, donc on verifie le token et en deuximème argument la clé secrète
     const userId = decodedToken.userId;
-
+    if( req.file ){
     models.Message.create({ 
         title: req.body.title,
         content: req.body.content,
-        //attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        likes: 0,
+        include:[{ model: models.User, attributes: [ 'username']}]
+    })
+    .then((message) => res.status(201).json(message))
+    .catch(error => res.status(500).json(error))
+} else{ 
+    models.Message.create({ 
+        title: req.body.title,
+        content: req.body.content,
+        attachment: null,
         UserId: userId,
         likes: 0,
         include:[{ model: models.User, attributes: [ 'username']}]
     })
     .then((message) => res.status(201).json(message))
     .catch(error => res.status(500).json(error))
+    }
+}
 
+// get one post with id 
+exports.findOneMessage = (req, res, next) => {
+
+    models.Message.findOne({ where: {id: req.params.id},include: ['username']})
+    .then((message) => res.status(200).send(message))
+    .catch((error) => res.status(500).send(error))
 
 }
 
@@ -30,14 +48,30 @@ exports.createMessage = (req, res, next) => {
 // get all posts from database
 exports.findAllMessages = (req, res, next) => {
     const order = req.query.order
-
     
     models.Message.findAll({
         order: [(order != null ? order.split(':') : ['createdAt', 'DESC'])],
-        include:[{ model: models.User, attributes: [ 'username']}]
+        include:[{ model: models.User, attributes: ['username']}]
     })
     .then(messages => res.status(200).json(messages))
     .catch(error => res.status(500).send(error))
+};
+
+
+// update post
+exports.updateMessage = (req, res, next) => {
+    models.Message.update({ where: {id: req.params.id}})
+        .then(() => res.status(200).send({message: 'Vous avez modifié votre publication!'}))
+        .catch((error) => res.status(400).send(error))      
 }
 
 
+
+// delete post 
+exports.deleteMessage = (req, res, next) => {
+
+    models.Message.destroy({ where: {id: req.params.id}})
+        .then(() => res.status(200).send({message: 'Vous avez supprimé une publication!'}))
+        .catch((error) => res.status(500).send(error))
+
+}
