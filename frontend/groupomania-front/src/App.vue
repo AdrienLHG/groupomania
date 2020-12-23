@@ -1,12 +1,13 @@
 <template>
     <div id="app">
         <Nav />
-        <router-view></router-view>
+        <HomeConnexion />
         <Footer />
     </div>
 </template>
 <script>
 import Nav from "@/components/Nav.vue";
+import HomeConnexion from "@/components/HomeConnexion.vue";
 import Footer from "@/components/Footer.vue";
 
 export default {
@@ -14,6 +15,7 @@ export default {
     components: {
         Nav,
         Footer,
+        HomeConnexion,
     },
 };
 </script>
