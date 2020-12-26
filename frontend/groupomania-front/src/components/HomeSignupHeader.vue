@@ -1,8 +1,8 @@
 <template>
   <!-- Entête pages de connexion et d'inscription -->
   <b-row align-h="center">
-    <b-col md="8" class="text-center">
-      <img class="mt-3" src="../assets/logo.png" alt="Groupomania logo" />
+    <b-col class="text-center">
+      <img class="mt-3" src="../assets/icon-left-font-monochrome-white.png" alt="Groupomania logo" />
       <h1>{{ titre }}</h1>
       <hr />
     </b-col>
@@ -20,3 +20,7 @@ export default {
   },
 };
 </script>
+
+<style>
+
+</style>

@@ -1,36 +1,29 @@
 <template>
   <b-container>
-
     <HomeSignupHeader v-bind:titre="titre" />
-    <HomeLogin />
-    <HomeSignup />
-
+    <SignupForm />
   </b-container>
 </template>
 
 <script>
 import HomeSignupHeader from "../components/HomeSignupHeader";
-import HomeLogin from "../components/HomeLogin";
-import HomeSignup from "../components/HomeSignup";
-
+import SignupForm from "../components/SignupForm";
 
 
 export default {
-  name: "Home",
+  name: "Signup",
 
   data() {
     return {
-      titre: "Bienvenue sur notre réseau social !",
+      titre: "Créez votre compte !",
     }
   },
 
   components: {
     HomeSignupHeader,
-    HomeLogin,
-    HomeSignup,
+    SignupForm,
     }
-
-};
+}
 </script>
 
 <style>

@@ -12,7 +12,7 @@ import store from './store'
 
 // Configuration d'axios
 Vue.prototype.$http = axios
-axios.defaults.baseURL = 'http://localhost:3000/api/'
+axios.defaults.baseURL = 'http://localhost:3000/api'
 
 Vue.config.productionTip = false
 

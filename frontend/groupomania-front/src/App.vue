@@ -12,7 +12,7 @@ export default {};
 
 <style>
 body {
-  background: linear-gradient(160deg, #ffffff 35%, #bebebe 80%, #091f43 97%);
+  background: linear-gradient(#1B4F72 10%, #F9EBEA 80%, #ffffff 90%);
   background-attachment: fixed;
   position: absolute;
   margin: 0;
