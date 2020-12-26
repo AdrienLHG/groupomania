@@ -83,7 +83,7 @@
                 class="my-3"
                 type="submit"
                 variant="success"
-                @click="signUp"
+                @click.prevent="signUp"
               >
                 Envoyer
               </b-button>
@@ -95,6 +95,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "SignupForm",
 
@@ -104,11 +106,10 @@ data() {
         username: "",
         email: "",
         password: "",
+        isAdmin: false,
       },
-      signupOk: "",
       signupError: false,
       problem: "",
-      titre: "Inscription",
       emailRegEx: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       passwordRegEx: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/,
     };
@@ -185,15 +186,52 @@ data() {
   },
 
   methods: {
-    /*
-    Création d'un compte utilisateur :
-      - envoie la requête si les champs comportent une donnée,
-      - redirige vers la page de connexion,
-      - informe si le nom d'utilisateur ou l'email sont déjà utilisés.
-    */
+
     signUp() {
+        let token = ""
+        axios.post('http://localhost:3000/api/users/signup', {
+          email: this.signup.email,
+          username: this.signup.username,
+          password: this.signup.password,
+          isAdmin: this.signup.isAdmin,
+        },
+        {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer${token}`
+              }
+        })
+      .then((res) => {
+        console.log(res)
+        console.log(res.config.data.username)
+        this.$bvToast.toast(`${res.data.username} created ! Your UserId is n° ${res.data.userId}`, {
+          title: 'Success',
+          variant: 'success',
+          autoHideDelay: 5000 
+          }
+        )
+      //  setTimeout(function() { window.location.pathname = '/login'; }, 6000)
+      })
+      .catch(error => {
+        if (error.message.match(409)[0] == 409) {
+            console.log('Hello Error 409')
+            this.$bvToast.toast(`This email/username already used`, {
+            title: 'Error',
+            variant: 'danger',
+            autoHideDelay: 5000 
+            }
+          )
+        } else {
+            this.$bvToast.toast(`Please recheck your fields`, {
+            title: 'Invalid value',
+            variant: 'danger',
+            autoHideDelay: 5000 
+            }
+          )
+        }
+      }) 
+      }
     },
-  },
 }
 
 </script>

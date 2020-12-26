@@ -71,6 +71,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "HomeLogin",
 
@@ -86,21 +88,7 @@ export default {
   },
 
   methods: {
-    signIn() {
-      if (this.signin.email !== null && this.signin.password !== null) {
-        this.$http
-          .post("/signin", this.signin)
-          .then((response) => {
-            localStorage.setItem("token", response.data.token);
-            this.$router.push({ path: "Messages" });
-          })
-          .catch((error) => {
-              this.problem = error.response.data.message;
-              this.signinError = !this.signinError;
-          })
       }
-    }
-  },
 }
 </script>
 
