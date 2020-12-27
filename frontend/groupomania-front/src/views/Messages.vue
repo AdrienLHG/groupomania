@@ -11,7 +11,7 @@
 import HomeSignupHeader from "../components/HomeSignupHeader";
 
 export default {
-  name: "Home",
+  name: "Message",
 
   data() {
     return {

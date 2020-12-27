@@ -55,7 +55,7 @@
               pill
               v-b-tooltip.hover
               title="Valider"
-              @click.prevent="signIn"
+              @click.prevent="login"
             >
               <b-icon
                 icon="power"
@@ -71,7 +71,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   name: "HomeLogin",
@@ -88,7 +87,52 @@ export default {
   },
 
   methods: {
+    login() {
+      let userLogInfo = {}
+      if (this.username == '') {
+        userLogInfo = {
+        email: this.email,
+        password: this.password
+        }
+      } else {
+        userLogInfo = {
+        username: this.username,
+        password: this.password
+        }
       }
+      this.$store.dispatch('userLogin', userLogInfo)
+      .then((res) => {
+        console.log(res)
+        this.$bvToast.toast(`${this.username, this.email} logged in !`, {
+          title: 'Success',
+          variant: 'success',
+          autoHideDelay: 5000 
+          }
+        )
+       // setTimeout(function() { window.location.pathname = '/messages'; }, 6000)
+      })
+      .catch((error) => {
+        console.log(error)
+        console.log(error.response)
+        let errorArray = error.response.data.errors
+        
+        if (!errorArray) {
+          this.$bvToast.toast(`${error.response.data.error}`, {
+          title: 'Error',
+          variant: 'danger',
+          autoHideDelay: 5000 
+          })
+        } 
+        else {
+          this.$bvToast.toast(`Error at ${errorArray[0].param} field`, {
+          title: errorArray[0].msg,
+          variant: 'danger',
+          autoHideDelay: 5000 
+          })
+        }
+      })
+    },
+  }   
 }
 </script>
 

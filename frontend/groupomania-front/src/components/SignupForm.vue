@@ -210,7 +210,7 @@ data() {
           autoHideDelay: 5000 
           }
         )
-      //  setTimeout(function() { window.location.pathname = '/login'; }, 6000)
+      setTimeout(function() { window.location.pathname = '/'; }, 6000)
       })
       .catch(error => {
         if (error.message.match(409)[0] == 409) {
