@@ -31,20 +31,6 @@
             ></b-form-input>
           </b-input-group>
 
-          <!-- Alerte sur erreur de connexion -->
-          <b-alert
-            class="textcenter"
-            v-model="signinError"
-            variant="danger"
-            dismissible
-            fade
-          >
-            <p class="h4 mb-2">
-              <b-icon icon="patch-exclamation-fill"></b-icon> Erreur
-            </p>
-            <p>{{ problem }}</p>
-          </b-alert>
-
           <!-- Bouton "valider" -->
           <b-col class="text-center">
             <b-button
@@ -82,38 +68,28 @@ export default {
         password: null,
       },
       signinError: false,
-      problem: "L'email etou le mot de passe ne sont pas valides",
     }
   },
 
   methods: {
     login() {
       let userLogInfo = {}
-      if (this.username == '') {
         userLogInfo = {
-        email: this.email,
-        password: this.password
+        email: this.signin.email,
+        password: this.signin.password
         }
-      } else {
-        userLogInfo = {
-        username: this.username,
-        password: this.password
-        }
-      }
       this.$store.dispatch('userLogin', userLogInfo)
       .then((res) => {
         console.log(res)
-        this.$bvToast.toast(`${this.username, this.email} logged in !`, {
+        this.$bvToast.toast(`${this.signin.email} logged in !`, {
           title: 'Success',
           variant: 'success',
           autoHideDelay: 5000 
           }
         )
-       // setTimeout(function() { window.location.pathname = '/messages'; }, 6000)
+       setTimeout(function() { window.location.pathname = '/messages'; }, 6000)
       })
       .catch((error) => {
-        console.log(error)
-        console.log(error.response)
         let errorArray = error.response.data.errors
         
         if (!errorArray) {
