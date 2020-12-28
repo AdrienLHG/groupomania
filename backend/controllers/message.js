@@ -16,6 +16,7 @@ exports.createMessage = (req, res, next) => {
         title: req.body.title,
         content: req.body.content,
         attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        UserId: userId,
         likes: 0,
         include:[{ model: models.User, attributes: [ 'username']}]
     })

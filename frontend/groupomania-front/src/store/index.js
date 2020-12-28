@@ -51,12 +51,12 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    saveUserData(state, [id, username, email, moderator]) {
+    saveUserData(state, [id, username, email, isAdmin]) {
       state.user.id = id,
         state.user.username = username,
         state.user.email = email,
         state.user.token = Vue.$cookies.get('user_session'),
-        state.user.moderator = moderator
+        state.user.isAdmin = isAdmin
     },
     UPDATE_EMAIL_INPUT (state, email) {state.users.email = email},
     UPDATE_USERNAME_INPUT (state, username) {state.users.username = username},
@@ -117,7 +117,7 @@ export default new Vuex.Store({
     getUserData(context) {
       let authorization = Vue.$cookies.get('user_session')
       axios
-        .get("users/profile/", {
+        .get("http://localhost:3000/api/users/profile/", {
           headers: {
             Authorization: "Bearer " + authorization.token
           }

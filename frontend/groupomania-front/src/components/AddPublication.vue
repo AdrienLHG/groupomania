@@ -77,6 +77,7 @@ export default {
 
   data() {
     return {
+      title: "",
       content: "",
       file: null,
       textError: false,
@@ -94,15 +95,17 @@ export default {
     */
     add() {
       if (this.content.length > 6) {
-        let formData = new FormData();
-        formData.append("image", this.file);
-        formData.append("content", this.content);
-
       let authorization = Vue.$cookies.get('user_session')
-          axios.post("messages", formData, {
+          axios.post("http://localhost:3000/api/messages", 
+          {
+            title: this.title,
+            content: this.content,
+            file: this.file
+            }
+          , {
             headers: {
               Authorization: "Bearer " + authorization.token,
-              "Content-Type": "multipart/form-data",
+              "Content-Type": "application/json",
             },
           })
           .then(() => {

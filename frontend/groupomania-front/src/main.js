@@ -6,14 +6,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-// Pour requêtes HTTP
-import axios from 'axios'
-
 // Pour mise en forme date et heure
 import moment from 'moment'
-
-// Configuration d'axios
-axios.defaults.baseURL = 'http://localhost:3000/api/'
 
 // Configuration de moment
 Vue.filter('formatDate', function (value) {

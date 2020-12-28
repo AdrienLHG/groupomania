@@ -6,13 +6,13 @@ Vue.use(VueCookies)
 
 class UserRoutes {
     userRegister(userInfo) {
-        return axios.post('users/signup', userInfo)
+        return axios.post('http://localhost:3000/api/users/signup', userInfo)
         .catch((err) => {
             throw err
         })
     }
     userLogin(userLogInfo) {
-        return axios.post('users/login', userLogInfo)
+        return axios.post('http://localhost:3000/api/users/login', userLogInfo)
         .then((response) => {
             //localStorage.setItem("token", response.data.token)
             Vue.$cookies.set('user_session', response.data, '1d')

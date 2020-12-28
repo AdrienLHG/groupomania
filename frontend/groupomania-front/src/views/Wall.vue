@@ -45,8 +45,8 @@
           <b-row>
             <b-col
               class="text-right"
-              v-if="user.moderator == 1 || user.id == publication.UserId"
-            >
+            >                     <!-- v-if="user.isAdmin == 1 || user.id == publication.UserId" -->
+
               <b-button
                 class="mt-3"
                 variant="danger"
@@ -113,7 +113,7 @@ export default {
     */
     getPublications() {
       let authorization = Vue.$cookies.get('user_session')
-      axios.get("messages", {
+      axios.get("http://localhost:3000/api/messages", {
           headers: {
             Authorization: "Bearer " + authorization.token,
           },
@@ -141,6 +141,7 @@ export default {
       - envoie la requête si OUI puis rafraîchit la liste.
     */
     alertDestroy(publication) {
+      let authorization = Vue.$cookies.get('user_session')
       this.destroyPublication = "";
       this.$bvModal
         .msgBoxConfirm("Voulez-vous vraiment supprimer cette publication ?", {
@@ -157,10 +158,9 @@ export default {
         .then((value) => {
           this.destroyPublication = value;
           if (this.destroyPublication == true) {
-            this.$http
-              .delete("publications/" + publication.id, {
+            axios.delete("http://localhost:3000/api/messages/" + publication.id, {
                 headers: {
-                  Authorization: "Bearer " + localStorage.getItem("token"),
+                  Authorization: "Bearer " + authorization.token,
                 },
               })
               .then(() => {
