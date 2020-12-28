@@ -87,7 +87,7 @@ export default {
           autoHideDelay: 5000 
           }
         )
-       setTimeout(function() { window.location.pathname = '/messages'; }, 6000)
+       setTimeout(function() { window.location.pathname = '/wall'; }, 6000)
       })
       .catch((error) => {
         let errorArray = error.response.data.errors

@@ -79,7 +79,7 @@ import AddPublication from "../components/AddPublication";
 import { mapState } from "vuex";
 
 export default {
-  name: "Publications",
+  name: "Wall",
 
   components: {
     Header,
@@ -109,8 +109,8 @@ export default {
       - si token absent ou invalide -> modal d'avertissement puis retour page de connexion
     */
     getPublications() {
-      this.$http
-        .get("publications", {
+      this.axios
+        .get("messages", {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },

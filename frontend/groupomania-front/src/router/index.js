@@ -16,9 +16,9 @@ const routes = [{
     component: () => import('../views/Signup.vue')
   },
   {
-    path: '/messages',
-    name: 'Messages',
-    component: () => import('../views/Messages.vue')
+    path: '/wall',
+    name: 'Wall',
+    component: () => import('../views/Wall.vue')
   },
   {
     path: '*',
