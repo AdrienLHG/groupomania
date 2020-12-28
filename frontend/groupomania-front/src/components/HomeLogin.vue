@@ -73,21 +73,19 @@ export default {
 
   methods: {
     login() {
-      let userLogInfo = {}
-        userLogInfo = {
+       let userLogInfo = {
         email: this.signin.email,
         password: this.signin.password
         }
       this.$store.dispatch('userLogin', userLogInfo)
-      .then((res) => {
-        console.log(res)
+      .then((response) => {
         this.$bvToast.toast(`${this.signin.email} logged in !`, {
           title: 'Success',
           variant: 'success',
           autoHideDelay: 5000 
           }
         )
-       setTimeout(function() { window.location.pathname = '/wall'; }, 6000)
+       setTimeout(function() { window.location.pathname = '/wall'; }, 2000)
       })
       .catch((error) => {
         let errorArray = error.response.data.errors

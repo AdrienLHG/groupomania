@@ -107,7 +107,7 @@ export default {
         .then((value) => {
           this.unsubscribeUser = value;
           if (this.unsubscribeUser == true) {
-            axios.delete("http://localhost:3000/api/users/profile/" + localStorage.getItem("UserIdDelete"), {
+            axios.delete("http://localhost:3000/api/users/profile/" + localStorage.getItem("UserId"), {
                 headers: {
                   Authorization: "Bearer " + authorization.token,
                 },

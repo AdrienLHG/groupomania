@@ -85,10 +85,9 @@ export default new Vuex.Store({
     },
     userLogin({commit}, userLogInfo) {
       return UserRoutes.userLogin(userLogInfo)
-      .then((userLogInfo) => {
-        console.log(userLogInfo)
-        commit('LOGIN_ANSWER', userLogInfo)
-        return Promise.resolve(userLogInfo)
+      .then((response) => {
+        commit('LOGIN_ANSWER', response)
+        return Promise.resolve(response)
       },
       (error) => {
         commit('LOGIN_ANSWER', error)

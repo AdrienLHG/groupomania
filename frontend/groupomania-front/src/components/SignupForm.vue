@@ -197,7 +197,6 @@ data() {
       this.$store.dispatch('userRegister', userInfo)
       .then((res) => {
         console.log(res)
-        localStorage.setItem("UserIdDelete", res.data.userId)
         this.$bvToast.toast(`${res.data.username} created ! Your UserId is n° ${res.data.userId}`, {
           title: 'Success',
           variant: 'success',
