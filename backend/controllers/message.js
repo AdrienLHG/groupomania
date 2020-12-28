@@ -11,29 +11,13 @@ exports.createMessage = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'XyJ__L9_VU2qMq8E7r_d__428_JRz9_vv7Uz4wVX_V__5eqE__s6829_tzB');// on va décoder le token, donc on verifie le token et en deuximème argument la clé secrète
     const userId = decodedToken.userId;
-    if( req.file ){
     models.Message.create({ 
-        title: req.body.title,
-        content: req.body.content,
-        attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         UserId: userId,
-        likes: 0,
-        include:[{ model: models.User, attributes: [ 'username']}]
+        content: req.body.content,
+        imageUrl: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
     })
     .then((message) => res.status(201).json(message))
     .catch(error => res.status(500).json(error))
-} else{ 
-    models.Message.create({ 
-        title: req.body.title,
-        content: req.body.content,
-        attachment: null,
-        UserId: userId,
-        likes: 0,
-        include:[{ model: models.User, attributes: [ 'username']}]
-    })
-    .then((message) => res.status(201).json(message))
-    .catch(error => res.status(500).json(error))
-    }
 }
 
 // get one post with id 

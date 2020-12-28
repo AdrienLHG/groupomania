@@ -30,7 +30,7 @@ exports.signup = async (req, res, next) => {
 
   user.password = await bcrypt.hash(user.password, 10);// bcrypt va permettre de masquer/crypter le password dans la base de donnée
   await user.save()// permet d'enregistrer l'utilisateur dans la base de donnée
-    .then(() => res.status(201).json({userId: user.id, isAdmin: user.isAdmin, token: jwt.sign({ userId: user.id }, 'XyJ__L9_VU2qMq8E7r_d__428_JRz9_vv7Uz4wVX_V__5eqE__s6829_tzB', {expiresIn: '24h'})}))// 201 créé et modifiée 
+    .then(() => res.status(201).json({userId: user.id, username: user.username, isAdmin: user.isAdmin, token: jwt.sign({ userId: user.id }, 'XyJ__L9_VU2qMq8E7r_d__428_JRz9_vv7Uz4wVX_V__5eqE__s6829_tzB', {expiresIn: '24h'})}))// 201 créé et modifiée 
     .catch(error => res.status(400).json({ error: 'Bad Request !' }));//erreur 400 mauvaise requête
 };
 
@@ -56,6 +56,7 @@ exports.login = (req, res, next) => {
             }
             res.status(200).json({
                 userId: user.id,
+                username: user.usernmane,
                 isAdmin: user.isAdmin,
                 token: jwt.sign(
                     { userId: user.id,

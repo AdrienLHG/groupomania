@@ -1,6 +1,5 @@
 <template>
   <b-container>
-
     <HomeSignupHeader v-bind:titre="titre" />
     <HomeLogin />
     <HomeSignup />

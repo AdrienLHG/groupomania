@@ -86,7 +86,7 @@ export default {
           autoHideDelay: 5000 
           }
         )
-       setTimeout(function() { window.location.pathname = '/wall'; }, 2000)
+      // setTimeout(function() { window.location.pathname = '/wall'; }, 2000)
       })
       .catch((error) => {
         let errorArray = error.response.data.errors

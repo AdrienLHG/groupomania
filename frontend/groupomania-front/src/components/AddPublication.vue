@@ -95,20 +95,19 @@ export default {
     */
     add() {
       if (this.content.length > 6) {
-      let authorization = Vue.$cookies.get('user_session')
-          axios.post("http://localhost:3000/api/messages", 
-          {
-            title: this.title,
-            content: this.content,
-            file: this.file
-            }
-          , {
-            headers: {
-              Authorization: "Bearer " + authorization.token,
-              "Content-Type": "application/json",
-            },
+        let formData = new FormData();
+        formData.append("image", this.file);
+        formData.append("title", this.title);
+        formData.append("content", this.content);
+        let authorization = Vue.$cookies.get('user_session')
+          axios.post("http://localhost:3000/api/messages", formData, {
+          headers: {
+            Authorization: "Bearer " + authorization.token,
+            "Content-Type": "multipart/form-data",
+            }, 
           })
-          .then(() => {
+          .then((response) => {
+            console.log (response);
             this.$parent.getPublications();
             Object.assign(this.$data, this.$options.data());
             this.$root.$emit("bv::toggle::collapse", "collapse-1");
