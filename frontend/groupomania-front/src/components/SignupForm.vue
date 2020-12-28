@@ -95,7 +95,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   name: "SignupForm",
@@ -188,19 +187,14 @@ data() {
   methods: {
 
     signUp() {
-        let token = ""
-        axios.post('http://localhost:3000/api/users/signup', {
-          email: this.signup.email,
-          username: this.signup.username,
-          password: this.signup.password,
-          isAdmin: this.signup.isAdmin,
-        },
-        {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization': `Bearer${token}`
-              }
-        })
+        let userInfo = {
+        email: this.signup.email,
+        username: this.signup.username,
+        bio: this.signup.bio,
+        password: this.signup.password,
+        isAdmin: this.signup.isAdmin
+      }
+      this.$store.dispatch('userRegister', userInfo)
       .then((res) => {
         console.log(res)
         console.log(res.config.data.username)

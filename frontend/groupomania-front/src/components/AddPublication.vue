@@ -70,7 +70,7 @@
 
 <script>
 export default {
-  name: "PosterMessage",
+  name: "AddPublication",
 
   data() {
     return {

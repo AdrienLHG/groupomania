@@ -1,9 +1,9 @@
 <template>
   <b-container>
 
-    <HeaderMessage />
+    <Header v-if="user.id !== null" v-bind:username="user.username" />
 
-    <PosterMessage />
+    <AddPublication v-if="user.id !== null" />
 
     <b-row align-h="center">
       <b-col
@@ -27,7 +27,7 @@
           </template>
 
           <!-- Texte -->
-          <b-card-text class="br">{{ publication.content }}</b-card-text>
+          <b-card-text class="br">{{ message.content }}</b-card-text>
 
           <!-- Image (facultative) -->
           <b-row>
@@ -74,25 +74,106 @@
 </template>
 
 <script>
-import HeaderMessage from "../components/HeaderMessage";
-import PosterMessage from "../components/PosterMessage";
+import Header from "../components/Header";
+import AddPublication from "../components/AddPublication";
+import { mapState } from "vuex";
 
 export default {
-  name: "Messages",
+  name: "Publications",
 
   components: {
-    HeaderMessage,
-    PosterMessage,
+    Header,
+    AddPublication,
   },
 
   data() {
     return {
-  }
-},
- methods: {
-    
-  }
-}
+      publications: [],
+      destroyPublication: "",
+    };
+  },
+
+  computed: {
+    ...mapState(["user"]),
+  },
+
+  mounted() {
+    this.getPublications();
+  },
+
+  methods: {
+    /*
+    Récupération de toutes les publications :
+      - requête l'API,
+      - récupère les données Publications / User,
+      - si token absent ou invalide -> modal d'avertissement puis retour page de connexion
+    */
+    getPublications() {
+      this.$http
+        .get("publications", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.publications = response.data;
+          this.$store.dispatch("getUserData");
+        })
+        .catch((error) => {
+          this.$bvModal
+            .msgBoxOk(error.response.data.message, {
+              title: "Accès non autorisé !",
+              okVariant: "info",
+              centered: true,
+            })
+            .then(() => {
+              this.$router.push({ path: "/" });
+            });
+        });
+    },
+
+    /*
+    Suppression d'une publication :
+      - Modal demandant confirmation,
+      - envoie la requête si OUI puis rafraîchit la liste.
+    */
+    alertDestroy(publication) {
+      this.destroyPublication = "";
+      this.$bvModal
+        .msgBoxConfirm("Voulez-vous vraiment supprimer cette publication ?", {
+          title: "Attention",
+          size: "sm",
+          buttonSize: "sm",
+          okVariant: "danger",
+          okTitle: "OUI",
+          cancelTitle: "NON",
+          footerClass: "p-2",
+          hideHeaderClose: false,
+          centered: true,
+        })
+        .then((value) => {
+          this.destroyPublication = value;
+          if (this.destroyPublication == true) {
+            this.$http
+              .delete("publications/" + publication.id, {
+                headers: {
+                  Authorization: "Bearer " + localStorage.getItem("token"),
+                },
+              })
+              .then(() => {
+                this.getPublications();
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+  },
+};
 </script>
 
 <style>

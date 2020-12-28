@@ -6,7 +6,7 @@ Vue.use(VueCookies)
 
 class UserRoutes {
     userRegister(userInfo) {
-        return axios.post('http://localhost:3000/api/user/signup', userInfo)
+        return axios.post('http://localhost:3000/api/users/signup', userInfo)
         .catch((err) => {
             throw err
         })
