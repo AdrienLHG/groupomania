@@ -79,6 +79,7 @@ export default {
         }
       this.$store.dispatch('userLogin', userLogInfo)
       .then((response) => {
+         console.log(response)
         this.$bvToast.toast(`${this.signin.email} logged in !`, {
           title: 'Success',
           variant: 'success',
