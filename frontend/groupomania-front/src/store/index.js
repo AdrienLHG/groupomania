@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { ToastPlugin } from 'bootstrap-vue'
 import UserRoutes from '../actions/user'
-import MessageRoutes from '../actions/message'
+import axios from 'axios'
 Vue.use(ToastPlugin)
 Vue.use(Vuex)
 
@@ -12,7 +12,8 @@ export default new Vuex.Store({
       email: '',
       username: '',
       bio: '',
-      password: ''
+      password: '',
+      idAdmin:''
     },
     answer: {
       registration: [],
@@ -50,6 +51,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    saveUserData(state, [id, username, email, moderator]) {
+      state.user.id = id,
+        state.user.username = username,
+        state.user.email = email,
+        state.user.token = Vue.$cookies.get('user_session'),
+        state.user.moderator = moderator
+    },
     UPDATE_EMAIL_INPUT (state, email) {state.users.email = email},
     UPDATE_USERNAME_INPUT (state, username) {state.users.username = username},
     UPDATE_BIO_INPUT (state, bio) {state.users.bio = bio},
@@ -106,63 +114,28 @@ export default new Vuex.Store({
         return Promise.reject(error)
       })
     },
-    getUserProfile({commit}, urlId) {
-      return UserRoutes.getUserLogin(urlId)
-      .then((response) => {
-        commit('GET_PROFILE', response)
-        return Promise.resolve(response)
-      },
-      (error) => {
-        commit('GET_PROFILE', error)
-        return Promise.reject(error)
-      })
-    },
-    updateUserProfile({commit}, payload) {
-      return UserRoutes.updateUser(payload)
-      .then((response) => {
-          commit('UPDATE_USER', response)
-          return Promise.resolve(response)
-        },
-        (error) => {
-          commit('UPDATE_USER')
-          return Promise.reject(error)
-        }
-      )
-    },
-    deleteUser({commit}, urlId) {
-      return UserRoutes.deleteUser(urlId)
-      .then((response) => {
-        commit('DELETE_USER', response)
-        return Promise.resolve(response)
-      },
-      (error) => {
-        commit('DELETE_USER', error)
-        return Promise.reject(error)
-      })
-    },
-    getAllUsers({commit}) {
-      return UserRoutes.getAllUsers()
-      .then((response) => {
-        commit('GET_ALL_USERS', response.data)
-        return Promise.resolve(response)
-      },
-      (error) => {
-        commit('GET_ALL_USERS', error)
-        return Promise.reject(error)
-      })
-    },
-    getAllMessages({commit}) {
-      return MessageRoutes.getAllMessages()
-      .then((response) => {
-        commit('GET_ALL_MESSAGES', response.data)
-        return Promise.resolve(response)
-      },
-      (error) => {
-        commit('GET_ALL_MESSAGES', error)
-        return Promise.reject(error)
-      })
+    getUserData(context) {
+      let authorization = Vue.$cookies.get('user_session')
+      axios
+        .get("users/profile/", {
+          headers: {
+            Authorization: "Bearer " + authorization.token
+          }
+        })
+        .then(response => {
+          context.commit('saveUserData', [
+            response.data.id,
+            response.data.username,
+            response.data.email,
+            response.data.isAdmin
+          ])
+        })
+        .catch(error => {
+          this.error = error.response.data.error;
+        });
     }
   },
   modules: {
   }
+
 })

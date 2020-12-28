@@ -27,7 +27,7 @@
           </template>
 
           <!-- Texte -->
-          <b-card-text class="br">{{ message.content }}</b-card-text>
+          <b-card-text class="br">{{ publication.content }}</b-card-text>
 
           <!-- Image (facultative) -->
           <b-row>
@@ -76,7 +76,10 @@
 <script>
 import Header from "../components/Header";
 import AddPublication from "../components/AddPublication";
+import axios from "axios";
 import { mapState } from "vuex";
+import Vue from 'vue';
+
 
 export default {
   name: "Wall",
@@ -109,10 +112,10 @@ export default {
       - si token absent ou invalide -> modal d'avertissement puis retour page de connexion
     */
     getPublications() {
-      this.axios
-        .get("messages", {
+      let authorization = Vue.$cookies.get('user_session')
+      axios.get("messages", {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + authorization.token,
           },
         })
         .then((response) => {

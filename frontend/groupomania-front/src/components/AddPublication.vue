@@ -69,6 +69,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import Vue from 'vue';
+
 export default {
   name: "AddPublication",
 
@@ -95,10 +98,10 @@ export default {
         formData.append("image", this.file);
         formData.append("content", this.content);
 
-        this.$http
-          .post("publications/addPublication", formData, {
+      let authorization = Vue.$cookies.get('user_session')
+          axios.post("messages", formData, {
             headers: {
-              Authorization: "Bearer " + window.localStorage.getItem("token"),
+              Authorization: "Bearer " + authorization.token,
               "Content-Type": "multipart/form-data",
             },
           })
