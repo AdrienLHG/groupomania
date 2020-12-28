@@ -1,7 +1,7 @@
 <template>
   <b-container>
 
-    <Header v-if="user.id !== null" v-bind:username="user.username" />
+    <HeaderMessage v-if="user.id !== null" v-bind:username="user.username" />
 
     <AddPublication v-if="user.id !== null" />
 
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import Header from "../components/Header";
+import HeaderMessage from "../components/HeaderMessage";
 import AddPublication from "../components/AddPublication";
 import axios from "axios";
 import { mapState } from "vuex";
@@ -85,7 +85,7 @@ export default {
   name: "Wall",
 
   components: {
-    Header,
+    HeaderMessage,
     AddPublication,
   },
 

@@ -48,8 +48,12 @@
 </template>
 
 <script>
+import axios from "axios";
+import { mapState } from "vuex";
+import Vue from 'vue'; 
 export default {
-  name: "Header",
+
+  name: "HeaderMessage",
 
   props: {
     username: {
@@ -63,13 +67,12 @@ export default {
     };
   },
 
+    computed: {
+    ...mapState(["user"]),
+  },
+
   methods: {
-    /*
-    Déconnexion de l'utilisateur :
-      - suppression du token,
-      - RAZ du store,
-      - redirection vers la page de connexion.
-    */
+
     disconnect() {
       localStorage.clear();
       this.$store.replaceState({
@@ -77,20 +80,14 @@ export default {
           id: null,
           username: "",
           email: "",
-          token: "",
-          moderator: "",
+          isAdmin: "",
         },
       });
       this.$router.push({ path: "/" });
     },
 
-    /*
-    Suppression du compte utilisateur :
-      - Modal demandant confirmation,
-      - envoie la requête si 'OUI',
-      - déconnexion.
-    */
     unsubscribe() {
+    let authorization = Vue.$cookies.get('user_session')
       this.unsubscribeUser = "";
       this.$bvModal
         .msgBoxConfirm(
@@ -110,10 +107,9 @@ export default {
         .then((value) => {
           this.unsubscribeUser = value;
           if (this.unsubscribeUser == true) {
-            this.$http
-              .delete("auth/delete", {
+            axios.delete("http://localhost:3000/api/users/profile/" + localStorage.getItem("UserIdDelete"), {
                 headers: {
-                  Authorization: "Bearer " + localStorage.getItem("token"),
+                  Authorization: "Bearer " + authorization.token,
                 },
               })
               .then(() => {

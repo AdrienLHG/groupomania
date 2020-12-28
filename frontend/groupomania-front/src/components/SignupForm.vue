@@ -197,14 +197,14 @@ data() {
       this.$store.dispatch('userRegister', userInfo)
       .then((res) => {
         console.log(res)
-        console.log(res.config.data.username)
+        localStorage.setItem("UserIdDelete", res.data.userId)
         this.$bvToast.toast(`${res.data.username} created ! Your UserId is n° ${res.data.userId}`, {
           title: 'Success',
           variant: 'success',
           autoHideDelay: 5000 
           }
         )
-      setTimeout(function() { window.location.pathname = '/'; }, 6000)
+      setTimeout(function() { window.location.pathname = '/'; }, 2000)
       })
       .catch(error => {
         if (error.message.match(409)[0] == 409) {

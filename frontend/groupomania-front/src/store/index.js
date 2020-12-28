@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
+      id:'',
       email: '',
       username: '',
       bio: '',
@@ -19,30 +20,9 @@ export default new Vuex.Store({
       registration: [],
       login: []
     },
-    getProfile: '',
-    userUpdate: {},
-    userDelete: '',
-    usersList: [],
-    messagesList: [],
-    websiteName: "Groupomania",
-    // eslint-disable-next-line no-useless-escape
-    regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
   },
   getters: {
-    copyright: (state) => {
-			const currentYear = new Date().getFullYear()
-
-			return `© Copyright ${currentYear} : ${state.websiteName}`
-    },
-    emailValidation(state) {
-      return state.regex.test(state.users.email)
-    },
-    usernameValidation(state) {
-      return state.users.username.length > 4 && state.users.username.length < 13
-    },
-    passwordValidation(state) {
-      return state.users.password.length > 4
-    },
     getUser(state) {
       return state.users
     },
@@ -52,7 +32,7 @@ export default new Vuex.Store({
   },
   mutations: {
     saveUserData(state, [id, username, email, isAdmin]) {
-      state.user.id = id,
+        state.user.id = id,
         state.user.username = username,
         state.user.email = email,
         state.user.token = Vue.$cookies.get('user_session'),
@@ -63,10 +43,11 @@ export default new Vuex.Store({
     UPDATE_BIO_INPUT (state, bio) {state.users.bio = bio},
     UPDATE_PWD_INPUT (state, password) {state.users.password = password},
     REGISTER_USER (state, userInfo) {
-      userInfo.email = state.users.email,
-      userInfo.username = state.users.username,
-      userInfo.bio = state.users.bio,
-      userInfo.password = state.users.password
+      userInfo.id = state.user.id,
+      userInfo.email = state.user.email,
+      userInfo.username = state.user.username,
+      userInfo.bio = state.user.bio,
+      userInfo.password = state.user.password
     },
     REGISTER_ANSWER (state, apiAnswer) {
       state.answer.registration = apiAnswer
