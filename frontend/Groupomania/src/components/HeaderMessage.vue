@@ -1,15 +1,11 @@
 <template>
-  <!-- Entête page principale -->
+  <!-- Header profile -->
   <b-container class="my-4">
     <b-row align-h="center">
 
-      <!-- Partie logo et nom -->
+      <!-- logo -->
       <b-col sm="8" class="text-center">
-        <img
-          class="px-3 imgsize"
-          alt="Groupomania-logo"
-          src="../assets/icon-left-font-monochrome-white.png"
-        />
+        <img class="px-3 imgsize" alt="Groupomania-logo" src="../assets/icon-left-font-monochrome-white.png"  />
         <h1 class="my-3">Réseau social interne</h1>
       </b-col>
 
@@ -20,23 +16,13 @@
             <b-icon icon="person-circle"></b-icon> {{ Bienvenue }}
           </p>
           <div class="m-3">
-            <b-button
-              type="button"
-              size="sm"
-              variant="warning"
-              @click="disconnect"
-            >
+            <b-button type="button" size="sm" variant="warning" @click="disconnect">
               <b-icon icon="door-open" aria-hidden="true"></b-icon>
               Déconnexion
             </b-button>
           </div>
           <div class="m-3">
-            <b-button
-              type="button"
-              size="sm"
-              variant="danger"
-              @click="desinscription"
-            >
+            <b-button type="button" size="sm" variant="danger" @click="desinscription">
               <b-icon icon="exclamation-circle" aria-hidden="true"></b-icon>
               Désinscription
             </b-button>

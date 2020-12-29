@@ -10,13 +10,7 @@
             <b-input-group-prepend is-text>
               <b-icon icon="at" aria-label="icone-email"></b-icon>
             </b-input-group-prepend>
-            <b-form-input
-              v-model="signin.email"
-              type="email"
-              required
-              aria-label="email"
-              placeholder="Entrez votre email"
-            ></b-form-input>
+            <b-form-input v-model="signin.email" type="email" required aria-label="email" placeholder="Entrez votre email"></b-form-input>
           </b-input-group>
 
           <!-- Champ mot de passe -->
@@ -24,33 +18,13 @@
             <b-input-group-prepend is-text>
               <b-icon icon="key-fill" aria-label="icône-mot-de-passe"></b-icon>
             </b-input-group-prepend>
-            <b-form-input
-              type="password"
-              v-model="signin.password"
-              required
-              aria-label="mot-de-passe"
-              placeholder="Entrez votre mot de passe"
-            ></b-form-input>
+            <b-form-input type="password" v-model="signin.password" required aria-label="mot-de-passe" placeholder="Entrez votre mot de passe"></b-form-input>
           </b-input-group>
 
           <!-- Bouton "valider" -->
           <b-col class="text-center">
-            <b-button
-              v-if="signinError == false"
-              type="submit"
-              variant="secondary"
-              size="lg"
-              pill
-              v-b-tooltip.hover
-              title="Valider"
-              @click.prevent="login"
-            >
-              <b-icon
-                icon="power"
-                font-scale="1.5"
-                animation="fade"
-                aria-label="Valider"
-              ></b-icon>
+            <b-button v-if="signinError == false" type="submit" variant="secondary" size="lg" pill v-b-tooltip.hover title="Valider" @click.prevent="login">
+              <b-icon icon="power" font-scale="1.5" animation="fade" aria-label="Valider"></b-icon>
             </b-button>
           </b-col>
         </b-form>

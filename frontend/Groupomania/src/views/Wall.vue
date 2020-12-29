@@ -6,19 +6,9 @@
     <AddPublication v-if="user.id !== null" />
 
     <b-row align-h="center">
-      <b-col
-        sm="8"
-        v-for="publication in publications"
-        :key="publication.id"
-        class="my-3"
-      >
+      <b-col sm="8" v-for="publication in publications" :key="publication.id" class="my-3">
         <!-- Carte de publication -->
-        <b-card
-          header-tag="header"
-          footer-tag="footer"
-          class="content"
-          tag="article"
-        >
+        <b-card header-tag="header" footer-tag="footer" class="content" tag="article">
           <!-- Entête carte -->
           <template v-slot:header>
             <p class="mb-0">
@@ -30,31 +20,17 @@
           <b-card-text class="br">{{ publication.content }}</b-card-text>
 
           <!-- Image (facultative) -->
-<b-row>
+          <b-row>
             <b-col class="text-center">
-              <b-img
-                v-if="publication.attachment !== null"
-                :src="publication.attachment"
-                fluid
-                alt=""
-              ></b-img>
+              <b-img v-if="publication.attachment !== null" :src="publication.attachment" fluid alt=""></b-img>
             </b-col>
           </b-row>
 
           <!-- Bouton supprimer -->
           <b-row>
-            <b-col
-              class="text-right"
-              v-if="admin == 'true' || userId == publication.UserId"
-            >
-              <b-button
-                class="mt-3"
-                variant="danger"
-                size="sm"
-                v-b-tooltip.hover
-                title="Supprimer"
-                @click="alertDestroy(publication)"
-              >
+            <b-col class="text-right" v-if="admin == 'true' || userId == publication.UserId" >
+              <b-button class="mt-3" variant="danger" size="sm" v-b-tooltip.hover title="Supprimer"
+                @click="Destroy(publication)">
                 <b-icon icon="trash"></b-icon>
               </b-button>
             </b-col>
@@ -108,12 +84,7 @@ export default {
   },
 
   methods: {
-    /*
-    Récupération de toutes les publications :
-      - requête l'API,
-      - récupère les données Publications / User,
-      - si token absent ou invalide -> modal d'avertissement puis retour page de connexion
-    */
+
     getPublications() {
       let authorization = Vue.$cookies.get('user_session')
       axios.get("http://localhost:3000/api/messages", {
@@ -138,12 +109,7 @@ export default {
         });
     },
 
-    /*
-    Suppression d'une publication :
-      - Modal demandant confirmation,
-      - envoie la requête si OUI puis rafraîchit la liste.
-    */
-    alertDestroy(publication) {
+    Destroy(publication) {
       let authorization = Vue.$cookies.get('user_session')
       this.destroyPublication = "";
       this.$bvModal

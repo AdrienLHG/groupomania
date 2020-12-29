@@ -2,12 +2,7 @@
   <!-- Formulaire de création de publication -->
   <b-row align-h="center">
     <b-col sm="8" class="mb-4">
-      <b-button
-        size="lg"
-        block
-        v-b-toggle.collapse-1
-        variant="info"
-      >
+      <b-button size="lg" block v-b-toggle.collapse-1 variant="info">
         Ajouter une publication
       </b-button>
       <b-collapse id="collapse-1" class="mt-2">
@@ -15,41 +10,21 @@
           <b-form-group>
 
             <!-- Champ texte -->
-            <b-form-textarea
-              id="textarea"
-              v-model="content"
-              required
-              :state="content.length >= 7"
-              placeholder="Que voulez-vous dire ?"
-              rows="3"
-              aria-describedby="textarea-help-block"
-            ></b-form-textarea>
+            <b-form-textarea id="textarea" v-model="content" required :state="content.length >= 7" placeholder="Que voulez-vous dire ?" rows="3" aria-describedby="textarea-help-block"></b-form-textarea>
             <b-form-text id="textarea-help-block">
               Champ requis, minimum 7 caractères.
             </b-form-text>
 
             <!-- Champ image : parcourir + drag & drop -->
             <p class="mt-4">Ajouter une image ? (facultatif)</p>
-            <b-form-file
-              v-model="file"
-              :state="Boolean(file)"
-              accept=".jpg, .jpeg, .png, .gif, .webp"
-              placeholder="Votre fichier..."
-              drop-placeholder="Déposez un fichier ici..."
-              v-on:change="onImageChange"
-            ></b-form-file>
+            <b-form-file v-model="file" :state="Boolean(file)" accept=".jpg, .jpeg, .png, .gif, .webp" placeholder="Votre fichier..." drop-placeholder="Déposez un fichier ici..."  v-on:change="onImageChange"></b-form-file>
             <p class="mt-2">
               Fichier sélectionné : {{ file ? file.name : "" }}
             </p>
 
             <!-- Bouton publier -->
             <b-col class="text-center">
-              <b-button
-                class="mt-3"
-                type="submit"
-                variant="primary"
-                @click="add"
-              >
+              <b-button class="mt-3" type="submit" variant="primary" @click="add">
                 <b-icon icon="upload" aria-hidden="true"></b-icon>
                 Publier
               </b-button>

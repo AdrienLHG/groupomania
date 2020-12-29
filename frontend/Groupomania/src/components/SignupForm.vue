@@ -7,57 +7,21 @@
           <b-form>
 
             <!-- Champ nom d'utilisateur -->
-            <b-form-group
-              label="Entrez un nom d'utilisateur :"
-              label-for="input-username"
-              :invalid-feedback="invalidUsernameFeedback"
-              :valid-feedback="validUsernameFeedback"
-              :state="stateUsername"
-            >
-              <b-form-input
-                id="input-username"
-                v-model="signup.username"
-                required
-                aria-describedby="username-help-block"
-                trim
-              ></b-form-input>
+            <b-form-group label="Entrez un nom d'utilisateur :" label-for="input-username" :invalid-feedback="invalidUsernameFeedback" :valid-feedback="validUsernameFeedback" :state="stateUsername">
+              <b-form-input id="input-username" v-model="signup.username" required aria-describedby="username-help-block" trim></b-form-input>
               <b-form-text id="username-help-block">
                 Votre nom d'utilisateur doit être composé de 3 à 50 caractères.
               </b-form-text>
             </b-form-group>
 
             <!-- Champ email -->
-            <b-form-group
-              label="Entrez un email :"
-              label-for="input-email"
-              v-bind:invalid-feedback="invalidEmailFeedback"
-              v-bind:valid-feedback="validEmailFeedback"
-              v-bind:state="stateEmail"
-            >
-              <b-form-input
-                id="input-email"
-                v-model="signup.email"
-                type="email"
-                required
-                trim
-              ></b-form-input>
+            <b-form-group label="Entrez un email :" label-for="input-email" v-bind:invalid-feedback="invalidEmailFeedback" v-bind:valid-feedback="validEmailFeedback" v-bind:state="stateEmail">
+              <b-form-input id="input-email" v-model="signup.email" type="email" required trim></b-form-input>
             </b-form-group>
 
             <!-- Champ mot de passe -->
-            <b-form-group
-              label="Entrez un mot de passe :"
-              label-for="input-password"
-              v-bind:invalid-feedback="invalidPasswordFeedback"
-              v-bind:valid-feedback="validPasswordFeedback"
-              :state="statePassword"
-            >
-              <b-form-input
-                id="input-password"
-                v-model="signup.password"
-                type="password"
-                required
-                aria-describedby="password-help-block"
-                trim
+            <b-form-group label="Entrez un mot de passe :" label-for="input-password" v-bind:invalid-feedback="invalidPasswordFeedback" v-bind:valid-feedback="validPasswordFeedback" :state="statePassword">
+              <b-form-input id="input-password" v-model="signup.password" type="password" required aria-describedby="password-help-block" trim
               ></b-form-input>
               <b-form-text id="password-help-block">
                 Votre mot de passe doit être composé de 8 à 12 caratère.<br />
@@ -66,26 +30,14 @@
             </b-form-group>
 
             <!-- Indication des erreurs -->
-            <b-alert
-              class="textleft"
-              v-model="signupError"
-              variant="info"
-              dismissible
-              fade
-            >
+            <b-alert class="textleft" v-model="signupError" variant="info" dismissible fade>
               <b-icon icon="info-circle"></b-icon> {{ problem }}
             </b-alert>
 
             <!-- Bouton de validation -->
             <b-col class="text-center">
-              <b-button
-                v-if="signupError == false"
-                class="my-3"
-                type="submit"
-                variant="success"
-                @click.prevent="signUp"
-              >
-                Envoyer
+              <b-button v-if="signupError == false" class="my-3" type="submit" variant="success" @click.prevent="signUp">
+                S'enregistrer
               </b-button>
             </b-col>
           </b-form>
