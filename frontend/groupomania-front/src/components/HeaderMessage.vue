@@ -78,7 +78,7 @@ export default {
           isAdmin: "",
         },
       });
-      this.$router.push({ path: "/" });
+      setTimeout(function() { window.location.pathname = '/'; }, 500)
     },
 
     desinscription() {

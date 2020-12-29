@@ -45,7 +45,7 @@
           <b-row>
             <b-col
               class="text-right"
-              v-if="user.isAdmin == 1 || userId == publication.UserId"
+              v-if="admin == 'true' || userId == publication.UserId"
             >
               <b-button
                 class="mt-3"
@@ -93,7 +93,8 @@ export default {
     return {
       publications: [],
       destroyPublication: "",
-      userId: localStorage.getItem("UserId")
+      userId: localStorage.getItem("UserId"),
+      admin: localStorage.getItem("admin"),
 
     };
   },
