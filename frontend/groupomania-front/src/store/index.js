@@ -22,57 +22,22 @@ export default new Vuex.Store({
     },
 
   },
-  getters: {
-    getUser(state) {
-      return state.user
-    },
-    getApiAnswer(state) {
-      return state.answer
-    },
-    username : state => {
-      return `${state.user.unsername}`
-  },
-},
   mutations: {
-    saveUserData(state, [id, username, email, isAdmin]) {
+    SAVE_USER_DATA(state, [id, username, email, isAdmin]) {
         state.user.id = id,
         state.user.username = username,
         state.user.email = email,
         state.user.token = Vue.$cookies.get('user_session'),
         state.user.isAdmin = isAdmin
     },
-    UPDATE_EMAIL_INPUT (state, email) {state.users.email = email},
-    UPDATE_USERNAME_INPUT (state, username) {state.users.username = username},
-    UPDATE_BIO_INPUT (state, bio) {state.users.bio = bio},
-    UPDATE_PWD_INPUT (state, password) {state.users.password = password},
-    REGISTER_USER (state, userInfo) {
-      userInfo.id = state.user.id,
-      userInfo.email = state.user.email,
-      userInfo.username = state.user.username,
-      userInfo.bio = state.user.bio,
-      userInfo.password = state.user.password
-    },
+
     REGISTER_ANSWER (state, apiAnswer) {
       state.answer.registration = apiAnswer
     },
     LOGIN_ANSWER (state, apiAnswer) {
       state.answer.login = apiAnswer
     },
-    GET_PROFILE (state, profileAccess) {
-      state.getProfile = profileAccess
-    },
-    UPDATE_USER (state, userUpdate) {
-      state.userUpdate = userUpdate
-    },
-    DELETE_USER (state, userDestroy) {
-      state.userDelete = userDestroy
-    },
-    GET_ALL_USERS (state, usersList) {
-      state.usersList = usersList
-    },
-    GET_ALL_MESSAGES (state, messagesList) {
-      state.messagesList = messagesList
-    }
+
   },
   actions: {
     userRegister({commit}, userInfo) {
@@ -106,7 +71,7 @@ export default new Vuex.Store({
           }
         })
         .then(response => {
-          context.commit('saveUserData', [
+          context.commit('SAVE_USER_DATA', [
             response.data.id,
             response.data.username,
             response.data.email,
@@ -120,5 +85,4 @@ export default new Vuex.Store({
   },
   modules: {
   }
-
 })

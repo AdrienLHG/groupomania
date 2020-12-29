@@ -6,7 +6,7 @@
         size="lg"
         block
         v-b-toggle.collapse-1
-        variant="primary"
+        variant="info"
       >
         Ajouter une publication
       </b-button>
@@ -47,7 +47,7 @@
               <b-button
                 class="mt-3"
                 type="submit"
-                variant="success"
+                variant="primary"
                 @click="add"
               >
                 <b-icon icon="upload" aria-hidden="true"></b-icon>

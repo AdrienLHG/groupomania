@@ -7,7 +7,7 @@
       <b-col sm="8" class="text-center">
         <img
           class="px-3 imgsize"
-          alt="Groupomania logo"
+          alt="Groupomania-logo"
           src="../assets/icon-left-font-monochrome-white.png"
         />
         <h1 class="my-3">Réseau social interne</h1>
@@ -16,14 +16,14 @@
       <!-- Partie utilisateur -->
       <b-col>
         <div class="user-box">
-          <p id="welcome" class="m-3">
+          <p id="welcome" class="m-3 profile">
             <b-icon icon="person-circle"></b-icon> {{ Bienvenue }}
           </p>
           <div class="m-3">
             <b-button
               type="button"
               size="sm"
-              variant="secondary"
+              variant="warning"
               @click="disconnect"
             >
               <b-icon icon="door-open" aria-hidden="true"></b-icon>
@@ -34,8 +34,8 @@
             <b-button
               type="button"
               size="sm"
-              variant="warning"
-              @click="unsubscribe"
+              variant="danger"
+              @click="desinscription"
             >
               <b-icon icon="exclamation-circle" aria-hidden="true"></b-icon>
               Désinscription
@@ -81,7 +81,7 @@ export default {
       this.$router.push({ path: "/" });
     },
 
-    unsubscribe() {
+    desinscription() {
     let authorization = Vue.$cookies.get('user_session')
       this.unsubscribeUser = "";
       this.$bvModal
@@ -128,14 +128,19 @@ export default {
   font-size: 1.2em;
 }
 .imgsize {
-  width: 75%;
+  width: 60%;
 }
 h1 {
-  font-size: 1.8em;
+  font-size: 1.6em;
+}
+
+.profile {
+  color: white;
 }
 .user-box {
   border-left: 1px solid gray;
 }
+
 @media screen and (max-width: 768px) {
   .user-box {
     border-top: 1px solid gray;

@@ -187,7 +187,7 @@ export default {
 }
 .datetime {
   font-size: 0.85em;
-  color: slategrey;
+  color: black;
   padding-left: 0.7em;
 }
 .br {
