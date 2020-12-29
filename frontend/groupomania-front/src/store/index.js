@@ -24,12 +24,15 @@ export default new Vuex.Store({
   },
   getters: {
     getUser(state) {
-      return state.users
+      return state.user
     },
     getApiAnswer(state) {
       return state.answer
-    }
+    },
+    username : state => {
+      return `${state.user.unsername}`
   },
+},
   mutations: {
     saveUserData(state, [id, username, email, isAdmin]) {
         state.user.id = id,

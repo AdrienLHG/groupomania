@@ -36,15 +36,8 @@
               accept=".jpg, .jpeg, .png, .gif, .webp"
               placeholder="Votre fichier..."
               drop-placeholder="Déposez un fichier ici..."
+              v-on:change="onImageChange"
             ></b-form-file>
-            <b-button
-              class="mt-2"
-              size="sm"
-              variant="secondary"
-              @click="file = null"
-            >
-              Reset
-            </b-button>
             <p class="mt-2">
               Fichier sélectionné : {{ file ? file.name : "" }}
             </p>
@@ -77,7 +70,6 @@ export default {
 
   data() {
     return {
-      title: "",
       content: "",
       file: null,
       textError: false,
@@ -86,18 +78,15 @@ export default {
   },
 
   methods: {
-    /* 
-    Création d'une publication :
-      - récupère les données du formulaire,
-      - envoie les données à l'API,
-      - en cas de succès rafraîchit la liste, efface les champs, ferme l'onglet 
-      - sinon indique l'erreur.
-    */
+  onImageChange(e){
+        console.log(e.target.files[0]);
+        this.file = e.target.files[0].name;
+        },
+
     add() {
       if (this.content.length > 6) {
         let formData = new FormData();
         formData.append("image", this.file);
-        formData.append("title", this.title);
         formData.append("content", this.content);
         let authorization = Vue.$cookies.get('user_session')
           axios.post("http://localhost:3000/api/messages", formData, {

@@ -17,7 +17,7 @@
       <b-col>
         <div class="user-box">
           <p id="welcome" class="m-3">
-            <b-icon icon="person-circle"></b-icon> {{ username }}
+            <b-icon icon="person-circle"></b-icon> {{ Bienvenue }}
           </p>
           <div class="m-3">
             <b-button
@@ -55,15 +55,10 @@ export default {
 
   name: "HeaderMessage",
 
-  props: {
-    username: {
-      type: String,
-    },
-  },
-
   data() {
     return {
       unsubscribeUser: "",
+      Bienvenue: 'Bienvenue'
     };
   },
 

@@ -14,7 +14,7 @@ exports.createMessage = (req, res, next) => {
     models.Message.create({ 
         UserId: userId,
         content: req.body.content,
-        imageUrl: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
+        attachment: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
     })
     .then((message) => res.status(201).json(message))
     .catch(error => res.status(500).json(error))

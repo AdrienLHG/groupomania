@@ -1,7 +1,7 @@
 <template>
   <b-container>
 
-    <HeaderMessage v-if="user.id !== null" v-bind:username="user.username" />
+    <HeaderMessage v-if="user.id !== null" />
 
     <AddPublication v-if="user.id !== null" />
 
@@ -30,11 +30,11 @@
           <b-card-text class="br">{{ publication.content }}</b-card-text>
 
           <!-- Image (facultative) -->
-          <b-row>
+<b-row>
             <b-col class="text-center">
               <b-img
-                v-if="publication.imageUrl !== null"
-                :src="publication.imageUrl"
+                v-if="publication.attachment !== null"
+                :src="publication.attachment"
                 fluid
                 alt=""
               ></b-img>
