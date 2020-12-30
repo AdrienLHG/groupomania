@@ -54,7 +54,6 @@ import HeaderMessage from "../components/HeaderMessage";
 import AddPublication from "../components/AddPublication";
 import axios from "axios";
 import { mapState } from "vuex";
-import Vue from 'vue';
 
 
 export default {
@@ -86,10 +85,10 @@ export default {
   methods: {
 
     getPublications() {
-      let authorization = Vue.$cookies.get('user_session')
+      let authorization = localStorage.getItem("token")
       axios.get("http://localhost:3000/api/messages", {
           headers: {
-            Authorization: "Bearer " + authorization.token,
+            Authorization: "Bearer " + authorization,
           },
         })
         .then((response) => {
@@ -110,7 +109,7 @@ export default {
     },
 
     Destroy(publication) {
-      let authorization = Vue.$cookies.get('user_session')
+      let authorization = localStorage.getItem("token")
       this.destroyPublication = "";
       this.$bvModal
         .msgBoxConfirm("Voulez-vous vraiment supprimer cette publication ?", {
@@ -129,7 +128,7 @@ export default {
           if (this.destroyPublication == true) {
             axios.delete("http://localhost:3000/api/messages/" + publication.id, {
                 headers: {
-                  Authorization: "Bearer " + authorization.token,
+                  Authorization: "Bearer " + authorization,
                 },
               })
               .then(() => {

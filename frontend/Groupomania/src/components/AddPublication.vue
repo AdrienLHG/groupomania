@@ -38,7 +38,6 @@
 
 <script>
 import axios from "axios";
-import Vue from 'vue';
 
 export default {
   name: "AddPublication",
@@ -63,10 +62,10 @@ export default {
         let formData = new FormData();
         formData.append("image", this.file);
         formData.append("content", this.content);
-        let authorization = Vue.$cookies.get('user_session')
+        let authorization = localStorage.getItem("token")
           axios.post("http://localhost:3000/api/messages", formData, {
           headers: {
-            Authorization: "Bearer " + authorization.token,
+            Authorization: "Bearer " + authorization,
             "Content-Type": "multipart/form-data",
             }, 
           })

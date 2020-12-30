@@ -18,7 +18,6 @@ class UserRoutes {
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("admin",response.data.isAdmin)
             localStorage.setItem("UserId", response.data.userId)
-            Vue.$cookies.set('user_session', response.data, '1d')
             console.log(response)
 
         })

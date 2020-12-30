@@ -63,11 +63,11 @@ export default new Vuex.Store({
       })
     },
     getUserData(context) {
-      let authorization = Vue.$cookies.get('user_session')
+      let authorization = localStorage.getItem("token")
       axios
         .get("http://localhost:3000/api/users/profile/", {
           headers: {
-            Authorization: "Bearer " + authorization.token
+            Authorization: "Bearer " + authorization
           }
         })
         .then(response => {

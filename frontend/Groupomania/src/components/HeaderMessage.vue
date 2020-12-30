@@ -36,7 +36,6 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-import Vue from 'vue'; 
 export default {
 
   name: "HeaderMessage",
@@ -68,7 +67,7 @@ export default {
     },
 
     desinscription() {
-    let authorization = Vue.$cookies.get('user_session')
+      let authorization = localStorage.getItem("token")
       this.unsubscribeUser = "";
       this.$bvModal
         .msgBoxConfirm(
@@ -90,7 +89,7 @@ export default {
           if (this.unsubscribeUser == true) {
             axios.delete("http://localhost:3000/api/users/profile/" + localStorage.getItem("UserId"), {
                 headers: {
-                  Authorization: "Bearer " + authorization.token,
+                  Authorization: "Bearer " + authorization,
                 },
               })
               .then(() => {
