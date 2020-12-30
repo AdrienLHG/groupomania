@@ -13,13 +13,13 @@ Installer MySQL
 Installation et démarrage du Backend
 
 Ouvrez votre terminal
-Allez dans le dossier backend : cd groupomania-master/backend
+Allez dans le dossier backend : cd groupomania/backend
 Installez toutes les dépendances du projet : npm install
 Démarrez le serveur Node.js : nodemon server
 Installation et démarrage du Frontend
 
 Ouvrez votre terminal
-Allez dans le dossier frontend : cd groupomania-master/frontend
+Allez dans le dossier frontend/groupomania : cd groupomania/frontend/groupomania
 Installez toutes les dépendances du projet : npm install
 Démarrez l'application : npm run serve
 Testez l'application
