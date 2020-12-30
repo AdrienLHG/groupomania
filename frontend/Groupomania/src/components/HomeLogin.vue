@@ -68,14 +68,14 @@ export default {
         let errorArray = error.response.data.errors
         
         if (!errorArray) {
-          this.$bvToast.toast(`${error.response.data.error}`, {
+          this.$bvToast.toast(`Veuillez renseigner une adresse mail et un mot de passe valides`, {
           title: 'Error',
           variant: 'danger',
           autoHideDelay: 5000 
           })
         } 
         else {
-          this.$bvToast.toast(`Error at ${errorArray[0].param} field`, {
+          this.$bvToast.toast(`Veuillez renseigner une adresse mail et un mot de passe valides`, {
           title: errorArray[0].msg,
           variant: 'danger',
           autoHideDelay: 5000 
