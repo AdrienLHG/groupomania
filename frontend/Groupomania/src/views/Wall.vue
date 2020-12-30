@@ -28,7 +28,7 @@
 
           <!-- Bouton supprimer -->
           <b-row>
-            <b-col class="text-right" v-if="admin == 'true' || userId == publication.UserId" >
+            <b-col class="text-right" v-if="user.isAdmin == 1 || user.id == publication.userId" >
               <b-button class="mt-3" variant="danger" size="sm" v-b-tooltip.hover title="Supprimer"
                 @click="Destroy(publication)">
                 <b-icon icon="trash"></b-icon>

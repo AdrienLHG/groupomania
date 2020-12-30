@@ -9,10 +9,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {
-      id:'',
+      id: null,
       email: '',
       username: '',
-      bio: '',
+      token: '',
       password: '',
       idAdmin:''
     },
@@ -27,7 +27,7 @@ export default new Vuex.Store({
         state.user.id = id,
         state.user.username = username,
         state.user.email = email,
-        state.user.token = Vue.$cookies.get('user_session'),
+        state.user.token = localStorage.getItem('token'),
         state.user.isAdmin = isAdmin
     },
 

@@ -16,8 +16,6 @@ class UserRoutes {
         .then((response) => {
             console.log(response)
             localStorage.setItem("token", response.data.token)
-            localStorage.setItem("admin",response.data.isAdmin)
-            localStorage.setItem("UserId", response.data.userId)
             console.log(response)
 
         })
