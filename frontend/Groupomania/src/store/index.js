@@ -64,13 +64,15 @@ export default new Vuex.Store({
     },
     getUserData(context) {
       let authorization = localStorage.getItem("token")
+      let urlId = localStorage.getItem("userId")
       axios
-        .get("http://localhost:3000/api/users/profile/", {
+        .get("http://localhost:3000/api/users/profile/" + urlId , {
           headers: {
             Authorization: "Bearer " + authorization
           }
         })
         .then(response => {
+          console.log(response.data)
           context.commit('SAVE_USER_DATA', [
             response.data.id,
             response.data.username,

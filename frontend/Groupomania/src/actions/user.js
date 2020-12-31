@@ -14,9 +14,9 @@ class UserRoutes {
     userLogin(userLogInfo) {
         return axios.post('http://localhost:3000/api/users/login', userLogInfo)
         .then((response) => {
-            console.log(response)
             localStorage.setItem("token", response.data.token)
-            console.log(response)
+            localStorage.setItem("userId", response.data.userId)
+
 
         })
         .catch((err) => {

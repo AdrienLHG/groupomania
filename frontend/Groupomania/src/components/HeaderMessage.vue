@@ -13,7 +13,7 @@
       <b-col>
         <div class="user-box">
           <p id="welcome" class="m-3 profile">
-            <b-icon icon="person-circle"></b-icon> {{ Bienvenue }}
+            <b-icon icon="person-circle"></b-icon> {{ username }}
           </p>
           <div class="m-3">
             <b-button type="button" size="sm" variant="warning" @click="disconnect">
@@ -39,6 +39,12 @@ import { mapState } from "vuex";
 export default {
 
   name: "HeaderMessage",
+
+    props: {
+    username: {
+      type: String,
+    },
+  },
 
   data() {
     return {
