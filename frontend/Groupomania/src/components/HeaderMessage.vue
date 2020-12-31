@@ -92,8 +92,12 @@ export default {
         )
         .then((value) => {
           this.unsubscribeUser = value;
+          const jwt = require('jsonwebtoken');
+          let token = localStorage.getItem("token")
+          let decodedToken = jwt.verify(token, 'XyJ__L9_VU2qMq8E7r_d__428_JRz9_vv7Uz4wVX_V__5eqE__s6829_tzB' );
+          let id = decodedToken.userId; 
           if (this.unsubscribeUser == true) {
-            axios.delete("http://localhost:3000/api/users/profile/", {
+            axios.delete("http://localhost:3000/api/users/profile/" + id , {
                 headers: {
                   Authorization: "Bearer " + authorization,
                 },
