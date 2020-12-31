@@ -15,9 +15,6 @@ class UserRoutes {
         return axios.post('http://localhost:3000/api/users/login', userLogInfo)
         .then((response) => {
             localStorage.setItem("token", response.data.token)
-            localStorage.setItem("userId", response.data.userId)
-
-
         })
         .catch((err) => {
             throw err

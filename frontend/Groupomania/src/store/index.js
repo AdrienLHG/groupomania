@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import { ToastPlugin } from 'bootstrap-vue'
 import UserRoutes from '../actions/user'
 import axios from 'axios'
+const jwt = require('jsonwebtoken');
+
 Vue.use(ToastPlugin)
 Vue.use(Vuex)
 
@@ -64,9 +66,10 @@ export default new Vuex.Store({
     },
     getUserData(context) {
       let authorization = localStorage.getItem("token")
-      let urlId = localStorage.getItem("userId")
-      axios
-        .get("http://localhost:3000/api/users/profile/" + urlId , {
+      let token = localStorage.getItem("token")
+      let decodedToken = jwt.verify(token, 'XyJ__L9_VU2qMq8E7r_d__428_JRz9_vv7Uz4wVX_V__5eqE__s6829_tzB' );
+      let id = decodedToken.userId;      
+      axios.get("http://localhost:3000/api/users/profile/" + id , {
           headers: {
             Authorization: "Bearer " + authorization
           }
